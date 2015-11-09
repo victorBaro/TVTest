@@ -1,14 +1,21 @@
+var resourceLoader;
+
 App.onLaunch = function(options) {
   var javascriptFiles = [
+  	`${options.BASEURL}js/ResourceLoader.js`,
     `${options.BASEURL}js/Presenter.js`
   ];
 
   evaluateScripts(javascriptFiles, function(success) {
     if(success) {
-      var alert = createAlert("Hello World!", "");
-      Presenter.modalDialogPresenter(alert);
+    	resourceLoader = new ResourceLoader(options.BASEURL);
+    	resourceLoader.loadResource(`${options.BASEURL}templates/CellTemplate.xml.js`, function(resource) {
+        var doc = Presenter.makeDocument(resource);
+        Presenter.pushDocument(doc);
+      });
     } else {
-
+    	var errorDoc = createAlert("Evaluate Scripts Error", "Error attempting to evaluate external JavaScript files.");
+		navigationDocument.presentModal(errorDoc);
     }
   });
 }
