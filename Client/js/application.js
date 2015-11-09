@@ -9,7 +9,7 @@ App.onLaunch = function(options) {
   evaluateScripts(javascriptFiles, function(success) {
     if(success) {
     	resourceLoader = new ResourceLoader(options.BASEURL);
-    	resourceLoader.loadResource(`${options.BASEURL}templates/RandomTVTemplante.xml.js`, function(resource) {
+    	resourceLoader.loadResource(`${options.BASEURL}templates/RandomTVTemplate.xml.js`, function(resource) {
         var doc = Presenter.makeDocument(resource);
         Presenter.pushDocument(doc);
       });
